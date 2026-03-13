@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { obtenerProductos, crearProducto } = require('../controllers/productoController');
 
-// Cuando alguien haga un GET a esta ruta, se ejecuta la función obtenerProductos
+const {
+    obtenerProductos,
+    crearProducto,
+    actualizarProducto,
+    eliminarProducto
+} = require('../controllers/productoController');
+
 router.get('/', obtenerProductos);
 router.post('/', crearProducto);
+router.put('/:id', actualizarProducto);
+router.delete('/:id', eliminarProducto);
 
 module.exports = router;
