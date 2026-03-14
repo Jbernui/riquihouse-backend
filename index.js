@@ -2,6 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./config/db');
 const productoRoutes = require('./routes/productoRoutes');
+const insumoRoutes = require('./routes/insumoRoutes');
+const ventaRoutes = require('./routes/ventaRoutes');
+const produccionRoutes = require('./routes/produccionRoutes');
+const mermaRoutes = require('./routes/mermaRoutes');
+const recetaRoutes = require('./routes/recetaRoutes');
 
 // Inicializar la aplicación
 const app = express();
@@ -22,6 +27,11 @@ db.getConnection()
 
 // Usar rutas
 app.use('/api/productos', productoRoutes);
+app.use('/api/insumos', insumoRoutes);
+app.use('/api/ventas', ventaRoutes);
+app.use('/api/produccion', produccionRoutes);
+app.use('/api/mermas', mermaRoutes);
+app.use('/api/recetas', recetaRoutes);
 
 // Ruta de prueba (Para ver que el servidor está vivo)
 app.get('/', (req, res) => {

@@ -1,39 +1,123 @@
-const db = require('../config/db'); // Importamos tu conexión a MySQL
+const db = require('../config/db');
 
-// Función para obtener todos los productos
+// Obtener productos
 const obtenerProductos = async (req, res) => {
     try {
-        // Hacemos la consulta SQL literal
-        const [productos] = await db.query('SELECT * FROM productos');
-        
-        // Devolvemos la respuesta al Frontend en formato JSON
-        res.json(productos); 
+
+        const [productos] = await db.query(`
+            SELECT id_producto, nombre, precio_venta, stock_actual
+            FROM productos
+        `);
+
+        res.json(productos);
+
     } catch (error) {
+
         console.error(error);
-        res.status(500).json({ mensaje: 'Error al obtener los productos' });
+
+        res.status(500).json({
+            mensaje: 'Error al obtener los productos'
+        });
+
     }
 };
 
+
+// Crear producto
 const crearProducto = async (req, res) => {
+
     try {
-        // Extraemos los datos que nos enviará el Frontend (Postman por ahora)
+
         const { nombre, precio_venta, stock_actual } = req.body;
 
-        // Insertamos en MySQL usando "?" por seguridad (evita hackeos de Inyección SQL)
         const [resultado] = await db.query(
-            'INSERT INTO productos (nombre, precio_venta, stock_actual) VALUES (?, ?, ?)',
+            `INSERT INTO productos (nombre, precio_venta, stock_actual)
+             VALUES (?, ?, ?)`,
             [nombre, precio_venta, stock_actual || 0]
         );
-        
-        // Respondemos que todo salió bien y devolvemos el ID del nuevo producto
-        res.status(201).json({ 
-            id: resultado.insertId, 
-            mensaje: '¡Producto creado con éxito en Riqui House!' 
+
+        res.status(201).json({
+            id_producto: resultado.insertId,
+            nombre,
+            precio_venta,
+            stock_actual
         });
+
     } catch (error) {
+
         console.error(error);
-        res.status(500).json({ mensaje: 'Error al crear el producto' });
+
+        res.status(500).json({
+            mensaje: 'Error al crear el producto'
+        });
+
     }
 };
 
-module.exports = { obtenerProductos, crearProducto };
+
+// ACTUALIZAR producto
+const actualizarProducto = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+        const { nombre, precio_venta, stock_actual } = req.body;
+
+        await db.query(
+            `UPDATE productos
+             SET nombre = ?, precio_venta = ?, stock_actual = ?
+             WHERE id_producto = ?`,
+            [nombre, precio_venta, stock_actual, id]
+        );
+
+        res.json({
+            mensaje: "Producto actualizado"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            mensaje: "Error al actualizar producto"
+        });
+
+    }
+
+};
+
+
+// ELIMINAR producto
+const eliminarProducto = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        await db.query(
+            `DELETE FROM productos WHERE id_producto = ?`,
+            [id]
+        );
+
+        res.json({
+            mensaje: "Producto eliminado"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            mensaje: "Error al eliminar producto"
+        });
+
+    }
+
+};
+
+module.exports = {
+    obtenerProductos,
+    crearProducto,
+    actualizarProducto,
+    eliminarProducto
+};
