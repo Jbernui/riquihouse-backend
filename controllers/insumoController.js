@@ -26,7 +26,7 @@ const crearInsumo = async (req, res) => {
     }
 };
 
-// Actualizar insumo
+// Actualizar insumo (¡Aquí está la magia para guardar el stock!)
 const actualizarInsumo = async (req, res) => {
     try {
         const { id } = req.params;

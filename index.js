@@ -7,6 +7,7 @@ const ventaRoutes = require('./routes/ventaRoutes');
 const produccionRoutes = require('./routes/produccionRoutes');
 const mermaRoutes = require('./routes/mermaRoutes');
 const recetaRoutes = require('./routes/recetaRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // Inicializar la aplicación
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api/ventas', ventaRoutes);
 app.use('/api/produccion', produccionRoutes);
 app.use('/api/mermas', mermaRoutes);
 app.use('/api/recetas', recetaRoutes);
+app.use('/api/auth', authRoutes);
 
 // Ruta de prueba (Para ver que el servidor está vivo)
 app.get('/', (req, res) => {
