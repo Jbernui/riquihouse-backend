@@ -8,25 +8,20 @@ const produccionRoutes = require('./routes/produccionRoutes');
 const mermaRoutes = require('./routes/mermaRoutes');
 const recetaRoutes = require('./routes/recetaRoutes');
 const authRoutes = require('./routes/authRoutes');
-
-// Inicializar la aplicación
 const app = express();
 
-// Middlewares (Configuraciones de seguridad y formato)
-app.use(cors()); // Permite que React se conecte sin bloqueos
-app.use(express.json()); // Permite que tu servidor entienda datos en formato JSON
+app.use(cors());
+app.use(express.json());
 
-// Probar conexión a la base de datos
 db.getConnection()
     .then(connection => {
-        console.log('¡Conexión exitosa a la Base de Datos riquihouse_db! 🥞');
-        connection.release(); // Soltamos la conexión para que no consuma memoria
+        console.log('Conexión exitosa a la Base de Datos riquihouse_db');
+        connection.release();
     })
     .catch(error => {
         console.error('Error al conectar a la base de datos:', error.message);
     });
 
-// Usar rutas
 app.use('/api/productos', productoRoutes);
 app.use('/api/insumos', insumoRoutes);
 app.use('/api/ventas', ventaRoutes);
@@ -34,16 +29,12 @@ app.use('/api/produccion', produccionRoutes);
 app.use('/api/mermas', mermaRoutes);
 app.use('/api/recetas', recetaRoutes);
 app.use('/api/auth', authRoutes);
-
-// Ruta de prueba (Para ver que el servidor está vivo)
 app.get('/', (req, res) => {
     res.send('¡Servidor de Riqui House funcionando al 100%!');
 });
 
-// Definir el puerto (Usará el puerto que le dé la nube, o el 3000 en tu PC)
 const PORT = process.env.PORT || 3000;
 
-// Arrancar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Obtener todos los insumos
 const obtenerInsumos = async (req, res) => {
     try {
         const [insumos] = await db.query('SELECT * FROM insumos');
@@ -11,7 +10,6 @@ const obtenerInsumos = async (req, res) => {
     }
 };
 
-// Crear insumo
 const crearInsumo = async (req, res) => {
     try {
         const { nombre, costo_unitario, stock_actual } = req.body;
@@ -26,7 +24,6 @@ const crearInsumo = async (req, res) => {
     }
 };
 
-// Actualizar insumo (¡Aquí está la magia para guardar el stock!)
 const actualizarInsumo = async (req, res) => {
     try {
         const { id } = req.params;
@@ -42,7 +39,6 @@ const actualizarInsumo = async (req, res) => {
     }
 };
 
-// Eliminar insumo
 const eliminarInsumo = async (req, res) => {
     try {
         const { id } = req.params;

@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Registrar una nueva venta (El Jefe Final)
 const crearVenta = async (req, res) => {
     const connection = await db.getConnection(); 
     
@@ -45,7 +44,6 @@ const crearVenta = async (req, res) => {
     }
 };
 
-// Obtener historial de ventas simple (contador para el Dashboard)
 const obtenerVentas = async (req, res) => {
     try {
         const [ventas] = await db.query(`
@@ -61,11 +59,8 @@ const obtenerVentas = async (req, res) => {
     }
 };
 
-// ── NUEVO ──────────────────────────────────────────────────────
-// Obtener ventas CON detalle de productos (para el Dashboard admin)
 const obtenerVentasConDetalle = async (req, res) => {
     try {
-        // 1. Traemos todas las ventas con el nombre del vendedor
         const [ventas] = await db.query(`
             SELECT 
                 v.id_venta,
@@ -78,7 +73,6 @@ const obtenerVentasConDetalle = async (req, res) => {
             ORDER BY v.fecha_hora DESC
         `);
 
-        // 2. Para cada venta, traemos sus productos del detalle
         for (let i = 0; i < ventas.length; i++) {
             const [detalles] = await db.query(`
                 SELECT 
@@ -101,6 +95,4 @@ const obtenerVentasConDetalle = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al obtener el detalle de ventas' });
     }
 };
-// ──────────────────────────────────────────────────────────────
-
 module.exports = { crearVenta, obtenerVentas, obtenerVentasConDetalle };

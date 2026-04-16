@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { crearVenta, obtenerVentas, obtenerVentasConDetalle } = require('../controllers/ventaController');
 
-router.get('/',        obtenerVentas);           // GET  /api/ventas
-router.get('/detalle', obtenerVentasConDetalle); // GET  /api/ventas/detalle  ← NUEVO
-router.post('/',       crearVenta);              // POST /api/ventas
+router.get('/',        obtenerVentas);
+router.get('/detalle', obtenerVentasConDetalle);
+router.post('/',       crearVenta);
 
 module.exports = router;

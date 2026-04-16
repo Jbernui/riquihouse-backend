@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Obtener productos
 const obtenerProductos = async (req, res) => {
     try {
 
@@ -22,8 +21,6 @@ const obtenerProductos = async (req, res) => {
     }
 };
 
-
-// Crear producto
 const crearProducto = async (req, res) => {
 
     try {
@@ -54,8 +51,6 @@ const crearProducto = async (req, res) => {
     }
 };
 
-
-// ACTUALIZAR producto
 const actualizarProducto = async (req, res) => {
 
     try {
@@ -86,8 +81,6 @@ const actualizarProducto = async (req, res) => {
 
 };
 
-
-// ELIMINAR producto
 const eliminarProducto = async (req, res) => {
 
     try {

@@ -5,6 +5,6 @@ const { crearReceta, obtenerRecetas, eliminarReceta, actualizarReceta } = requir
 router.get('/', obtenerRecetas);
 router.post('/', crearReceta);
 router.delete('/:id', eliminarReceta);
-router.put('/:id', actualizarReceta); // <-- Ruta para editar activada
+router.put('/:id', actualizarReceta);
 
 module.exports = router;

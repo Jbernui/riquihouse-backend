@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Obtener todas las recetas (Añadimos los IDs para el formulario de edición)
 const obtenerRecetas = async (req, res) => {
     try {
         const [recetas] = await db.query(`
@@ -41,7 +40,6 @@ const eliminarReceta = async (req, res) => {
     }
 };
 
-// ¡LO NUEVO! Actualizar cantidad o insumo
 const actualizarReceta = async (req, res) => {
     try {
         const { id } = req.params;

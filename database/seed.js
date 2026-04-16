@@ -6,10 +6,7 @@ try {
 
 console.log("Iniciando seed...");
 
-/* DESACTIVAR FK */
 await db.query("SET FOREIGN_KEY_CHECKS = 0");
-
-/* LIMPIAR TODAS LAS TABLAS */
 await db.query("TRUNCATE TABLE ventas_detalle");
 await db.query("TRUNCATE TABLE ventas");
 await db.query("TRUNCATE TABLE produccion");
@@ -18,11 +15,7 @@ await db.query("TRUNCATE TABLE recetas_detalle");
 await db.query("TRUNCATE TABLE productos");
 await db.query("TRUNCATE TABLE insumos");
 await db.query("TRUNCATE TABLE usuarios");
-
-/* ACTIVAR FK */
 await db.query("SET FOREIGN_KEY_CHECKS = 1");
-
-/* USUARIOS */
 await db.query(`
 INSERT INTO usuarios (nombre, usuario, password, rol)
 VALUES
@@ -31,7 +24,6 @@ VALUES
 ('Carlos', 'CarlosVV', '1234', 'vendedor')
 `);
 
-/* PRODUCTOS */
 await db.query(`
 INSERT INTO productos (nombre, precio_venta, stock_actual)
 VALUES
@@ -47,7 +39,6 @@ VALUES
 ('Cheesecake de Fresa', 28.00, 6)
 `);
 
-/* INSUMOS */
 await db.query(`
 INSERT INTO insumos (nombre, costo_unitario, stock_actual)
 VALUES
@@ -63,7 +54,6 @@ VALUES
 ('Leche Condensada', 4.50, 20)
 `);
 
-/* RECETAS */
 await db.query(`
 INSERT INTO recetas_detalle (id_producto, id_insumo, cantidad_necesaria)
 VALUES

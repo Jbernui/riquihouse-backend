@@ -67,13 +67,9 @@ const obtenerProduccion = async (req, res) => {
 const eliminarProducto = async (req, res) => {
     try {
         const { id } = req.params;
-
-        // 1. PRIMERO eliminamos su receta asociada para evitar errores de MySQL
         await db.query(`DELETE FROM recetas_detalle WHERE id_producto = ?`, [id]);
-        
-        // 2. LUEGO eliminamos el producto de la vitrina
         await db.query(`DELETE FROM productos WHERE id_producto = ?`, [id]);
-
+        
         res.json({ mensaje: "Producto y su receta eliminados correctamente" });
 
     } catch (error) {
